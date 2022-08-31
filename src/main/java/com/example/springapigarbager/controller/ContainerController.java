@@ -38,5 +38,17 @@ public class ContainerController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping
+    public ResponseEntity<Container> create (@RequestBody Container entity)
+    {
+        try
+        {
+            return ResponseEntity.ok().body(containerService.save(entity));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }
