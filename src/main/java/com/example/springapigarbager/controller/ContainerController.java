@@ -1,0 +1,42 @@
+package com.example.springapigarbager.controller;
+
+import com.example.springapigarbager.model.Container;
+import com.example.springapigarbager.services.ContainerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/container")
+public class ContainerController {
+    @Autowired
+    private ContainerService containerService;
+
+    @GetMapping
+    public ResponseEntity<List<Container>> getAll()
+    {
+        try
+        {
+            return ResponseEntity.ok().body(containerService.findAll());
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @RequestMapping(value = "{id}")
+    public ResponseEntity<Container> findById(@PathVariable("id")int id)
+    {
+        try
+        {
+            return ResponseEntity.ok().body(containerService.findById(id));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+}
